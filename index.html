@@ -6,314 +6,493 @@
     <title>ClipStash — Privacy Policy</title>
     <style>
         :root {
-            --bg: #0d1117;
-            --surface: #161b22;
-            --border: #30363d;
-            --text: #e6edf3;
-            --text-secondary: #8b949e;
-            --accent: #3b82f6;
+            --text: #e9e3ff;
+            --text-muted: rgba(230, 225, 255, 0.65);
+            --text-dim: rgba(230, 225, 255, 0.45);
+            --accent: #a78bfa;
+            --accent-soft: #8ab4ff;
+            --border: rgba(255, 255, 255, 0.1);
+            --surface: rgba(255, 255, 255, 0.045);
+            --surface-hi: rgba(255, 255, 255, 0.07);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { min-height: 100vh; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', sans-serif;
             color: var(--text);
             line-height: 1.7;
-            min-height: 100vh;
+            position: relative;
+            background:
+                radial-gradient(ellipse 90% 60% at 20% 0%, #6b4ad6 0%, transparent 55%),
+                radial-gradient(ellipse 110% 80% at 80% 100%, #1a2668 0%, transparent 60%),
+                radial-gradient(ellipse 140% 110% at 50% 40%, #251a66 0%, #0a0830 60%, #040218 100%);
+            background-attachment: fixed;
         }
+        body::before {
+            content: "";
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+            opacity: 0.08;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: "";
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(circle 600px at 10% 10%, rgba(124, 92, 255, 0.25), transparent 60%),
+                radial-gradient(circle 500px at 90% 80%, rgba(56, 103, 255, 0.18), transparent 60%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .container {
-            max-width: 720px;
+            position: relative;
+            z-index: 1;
+            max-width: 820px;
             margin: 0 auto;
-            padding: 60px 24px 80px;
+            padding: 80px 24px 100px;
         }
 
         /* Header */
         .header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 60px;
         }
-        .header .icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            display: flex;
+        .header .app-chip {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 36px;
+            gap: 12px;
+            padding: 8px 16px 8px 10px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            backdrop-filter: blur(20px);
+        }
+        .header .app-chip .logo {
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 0 16px rgba(167, 139, 250, 0.5);
+        }
+        .header .app-icon {
+            width: 112px; height: 112px;
+            border-radius: 26px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 24px;
+            box-shadow:
+                0 24px 48px rgba(124, 92, 255, 0.45),
+                0 0 80px rgba(167, 139, 250, 0.25);
+        }
+        .header .eyebrow {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #c7b9ff;
+            margin-bottom: 14px;
         }
         .header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 14px;
+            background: linear-gradient(120deg, #fff 0%, #c7b9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .header .updated {
-            color: var(--text-secondary);
+            color: var(--text-dim);
             font-size: 14px;
+        }
+
+        /* Promise cards */
+        .promise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .promise {
+            padding: 22px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            backdrop-filter: blur(24px);
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .promise:hover {
+            transform: translateY(-2px);
+            border-color: rgba(167, 139, 250, 0.35);
+        }
+        .promise .p-icon {
+            width: 46px; height: 46px;
+            border-radius: 13px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.25), rgba(167, 139, 250, 0.08));
+            border: 1px solid rgba(167, 139, 250, 0.35);
+            color: #d5c4ff;
+        }
+        .promise .p-icon.g { background: linear-gradient(135deg, rgba(52, 211, 153, 0.25), rgba(52, 211, 153, 0.08)); border-color: rgba(52, 211, 153, 0.35); color: #a7f3d0; }
+        .promise .p-icon.b { background: linear-gradient(135deg, rgba(138, 180, 255, 0.25), rgba(138, 180, 255, 0.08)); border-color: rgba(138, 180, 255, 0.35); color: #bfd5ff; }
+        .promise .p-title {
+            font-size: 16px; font-weight: 700; color: #fff;
+            margin-bottom: 4px; line-height: 1.3;
+        }
+        .promise .p-desc {
+            font-size: 12px; color: var(--text-dim);
+            line-height: 1.4;
         }
 
         /* Sections */
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
+            border-radius: 18px;
+            padding: 32px;
             margin-bottom: 20px;
+            backdrop-filter: blur(24px);
+            position: relative;
+            overflow: hidden;
+        }
+        .section::before {
+            content: "";
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.4), transparent);
         }
         .section h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 20px; font-weight: 700;
+            margin-bottom: 16px;
+            display: flex; align-items: center; gap: 12px;
+            letter-spacing: -0.3px;
         }
-        .section h2 .emoji {
-            font-size: 20px;
+        .section h2 .emoji-icon {
+            width: 38px; height: 38px;
+            border-radius: 11px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.22), rgba(138, 180, 255, 0.08));
+            border: 1px solid rgba(167, 139, 250, 0.3);
         }
         .section p {
-            color: var(--text-secondary);
-            font-size: 14px;
+            color: var(--text-muted);
+            font-size: 15px;
             margin-bottom: 12px;
         }
-        .section p:last-child {
-            margin-bottom: 0;
-        }
-        .section ul {
-            list-style: none;
-            padding: 0;
-        }
+        .section p:last-child { margin-bottom: 0; }
+        .section ul { list-style: none; padding: 0; }
         .section ul li {
-            color: var(--text-secondary);
-            font-size: 14px;
-            padding: 5px 0 5px 20px;
+            color: var(--text-muted);
+            font-size: 15px;
+            padding: 6px 0 6px 22px;
             position: relative;
         }
         .section ul li::before {
-            content: "•";
+            content: "";
             position: absolute;
-            left: 4px;
-            color: var(--accent);
+            left: 4px; top: 15px;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+            box-shadow: 0 0 8px rgba(167, 139, 250, 0.55);
         }
+        .section a { color: var(--accent-soft); text-decoration: none; border-bottom: 1px dashed rgba(138, 180, 255, 0.35); }
+        .section a:hover { color: #fff; border-color: #fff; }
+        .section strong { color: #fff; font-weight: 600; }
+
         .highlight {
-            background: rgba(59, 130, 246, 0.08);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 16px 0;
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.14), rgba(138, 180, 255, 0.06));
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin: 8px 0 0;
+            position: relative;
         }
         .highlight p {
-            color: var(--text);
+            color: #fff;
             font-weight: 500;
+            font-size: 16px;
             margin-bottom: 0;
+            line-height: 1.55;
+        }
+        .highlight::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #8ab4ff, #f0abfc);
+            border-radius: 3px 0 0 3px;
         }
 
-        /* Table */
+        /* Data table */
+        .data-table {
+            margin-top: 8px;
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: rgba(14, 12, 32, 0.45);
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 12px;
         }
         th, td {
             text-align: left;
-            padding: 10px 12px;
+            padding: 14px 16px;
             font-size: 13px;
             border-bottom: 1px solid var(--border);
         }
         th {
             color: var(--text);
-            font-weight: 600;
-            font-size: 12px;
+            font-weight: 700;
+            font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1.2px;
+            background: rgba(167, 139, 250, 0.08);
+        }
+        td { color: var(--text-muted); }
+        td:first-child { color: #fff; font-weight: 500; }
+        td:last-child {
+            font-variant-numeric: tabular-nums;
+            color: var(--text-dim);
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(167, 139, 250, 0.05); }
+
+        .local-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 700;
+            padding: 3px 8px; border-radius: 6px;
+            background: rgba(52, 211, 153, 0.14);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            color: #a7f3d0;
             letter-spacing: 0.5px;
         }
-        td {
-            color: var(--text-secondary);
+        .apple-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 700;
+            padding: 3px 8px; border-radius: 6px;
+            background: rgba(138, 180, 255, 0.14);
+            border: 1px solid rgba(138, 180, 255, 0.3);
+            color: #bfd5ff;
+            letter-spacing: 0.5px;
         }
-        tr:last-child td {
-            border-bottom: none;
+
+        /* Never-collect strip */
+        .never-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .never-strip .n-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 14px;
+            background: rgba(248, 113, 113, 0.08);
+            border: 1px solid rgba(248, 113, 113, 0.22);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .never-strip .n-item .x {
+            width: 24px; height: 24px;
+            border-radius: 7px;
+            background: rgba(248, 113, 113, 0.2);
+            color: #fca5a5;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700;
+            flex-shrink: 0;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            margin-top: 48px;
-            padding-top: 24px;
+            margin-top: 56px;
+            padding-top: 28px;
             border-top: 1px solid var(--border);
         }
-        .footer p {
-            color: var(--text-secondary);
-            font-size: 12px;
-        }
-        .footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-        }
-        .footer a:hover {
-            color: var(--text);
-        }
+        .footer p { color: var(--text-dim); font-size: 12px; }
+        .footer a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .footer a:hover { color: #fff; }
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 12px;
+            display: flex; justify-content: center; flex-wrap: wrap;
+            gap: 8px 24px;
+            margin-bottom: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 48px 18px 72px; }
+            .header h1 { font-size: 34px; }
+            .promise-grid { grid-template-columns: 1fr; }
+            .never-strip { grid-template-columns: 1fr; }
+            .section { padding: 24px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <div class="icon">&#x1F512;</div>
-            <h1>Privacy Policy</h1>
-            <p class="updated">Last updated: April 18, 2026</p>
+            <div class="app-chip"><img class="logo" src="AppIcon.appiconset/128.png" alt=""> ClipStash for macOS</div>
+            <img class="app-icon" src="AppIcon.appiconset/512.png" alt="ClipStash">
+            <div class="eyebrow">Privacy Policy</div>
+            <h1>Your clipboard. Yours alone.</h1>
+            <p class="updated">Last updated: April 19, 2026</p>
+        </div>
+
+        <!-- Promise cards -->
+        <div class="promise-grid">
+            <div class="promise">
+                <div class="p-icon g">&#x1F4BB;</div>
+                <div class="p-title">100% on-device</div>
+                <div class="p-desc">Your clips never leave your Mac</div>
+            </div>
+            <div class="promise">
+                <div class="p-icon b">&#x1F6AB;</div>
+                <div class="p-title">Zero tracking</div>
+                <div class="p-desc">No analytics, no telemetry</div>
+            </div>
+            <div class="promise">
+                <div class="p-icon">&#x1F5D1;&#xFE0F;</div>
+                <div class="p-title">Your data, your control</div>
+                <div class="p-desc">Clear or uninstall anytime</div>
+            </div>
         </div>
 
         <!-- Summary -->
         <div class="section">
-            <h2><span class="emoji">&#x1F4A1;</span> The Short Version</h2>
+            <h2><span class="emoji-icon">&#x1F4A1;</span> The short version</h2>
             <div class="highlight">
-                <p>ClipStash stores all clipboard data locally on your device. We do not collect, transmit, or store any of your clipboard contents, personal data, or usage analytics on external servers.</p>
+                <p>ClipStash stores every clip locally on your Mac. We don't collect, transmit, or store your clipboard contents, personal data, or usage analytics on any external server — because we don't operate any.</p>
             </div>
         </div>
 
         <!-- What we collect -->
         <div class="section">
-            <h2><span class="emoji">&#x1F4CB;</span> What Data ClipStash Accesses</h2>
-            <p>ClipStash accesses the following data, all of which remains on your device:</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Purpose</th>
-                        <th>Stored</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Clipboard contents</td>
-                        <td>Display your clipboard history</td>
-                        <td>Locally on device</td>
-                    </tr>
-                    <tr>
-                        <td>Source app name</td>
-                        <td>Show which app a clip came from</td>
-                        <td>Locally on device</td>
-                    </tr>
-                    <tr>
-                        <td>App preferences</td>
-                        <td>Remember your settings</td>
-                        <td>Locally on device</td>
-                    </tr>
-                    <tr>
-                        <td>Trial status</td>
-                        <td>Manage free trial period</td>
-                        <td>Locally (Keychain)</td>
-                    </tr>
-                    <tr>
-                        <td>Purchase status</td>
-                        <td>Verify Pro subscription</td>
-                        <td>Apple (via StoreKit)</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2><span class="emoji-icon">&#x1F4CB;</span> What data ClipStash accesses</h2>
+            <p>Everything in the table below stays on your device, unless marked otherwise.</p>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Purpose</th>
+                            <th>Stored</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Clipboard text</td><td>Display your clipboard history</td><td><span class="local-chip">LOCAL</span></td></tr>
+                        <tr><td>Copied file paths</td><td>Paste the original file back from history</td><td><span class="local-chip">LOCAL</span></td></tr>
+                        <tr><td>Image clips (Pro)</td><td>Preserve screenshots and copied images</td><td><span class="local-chip">LOCAL</span></td></tr>
+                        <tr><td>Source app name</td><td>Show which app a clip came from</td><td><span class="local-chip">LOCAL</span></td></tr>
+                        <tr><td>App preferences</td><td>Remember settings, groups, excluded apps</td><td><span class="local-chip">LOCAL</span></td></tr>
+                        <tr><td>Purchase / trial status</td><td>Verify Pro subscription &amp; trial eligibility</td><td><span class="apple-chip">APPLE · STOREKIT</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- What we don't collect -->
         <div class="section">
-            <h2><span class="emoji">&#x1F6AB;</span> What We Do NOT Collect</h2>
-            <p>ClipStash does not collect or transmit:</p>
-            <ul>
-                <li>Your clipboard contents or history</li>
-                <li>Personal information (name, email, location)</li>
-                <li>Usage analytics or telemetry</li>
-                <li>Device identifiers or fingerprints</li>
-                <li>Crash reports or diagnostics</li>
-                <li>Advertising data of any kind</li>
-            </ul>
+            <h2><span class="emoji-icon">&#x1F6AB;</span> What we do <em>not</em> collect</h2>
+            <p>ClipStash never collects, transmits, or stores:</p>
+            <div class="never-strip">
+                <div class="n-item"><span class="x">&times;</span> Clipboard contents or history</div>
+                <div class="n-item"><span class="x">&times;</span> Name, email, location</div>
+                <div class="n-item"><span class="x">&times;</span> Usage analytics or telemetry</div>
+                <div class="n-item"><span class="x">&times;</span> Device identifiers or fingerprints</div>
+                <div class="n-item"><span class="x">&times;</span> Crash reports or diagnostics</div>
+                <div class="n-item"><span class="x">&times;</span> Advertising data, ever</div>
+            </div>
         </div>
 
         <!-- Local storage -->
         <div class="section">
-            <h2><span class="emoji">&#x1F4BE;</span> Local Data Storage</h2>
-            <p>All clipboard history is stored in a local database on your Mac using Apple's SwiftData framework. This data never leaves your device.</p>
-            <p>You can delete all stored clipboard history at any time from ClipStash Settings &rarr; Clear History. Uninstalling the app removes all locally stored data.</p>
-            <p>Trial status information is stored in the macOS Keychain to prevent trial abuse. This data contains only a timestamp and persists across app installations.</p>
+            <h2><span class="emoji-icon">&#x1F4BE;</span> Local data storage</h2>
+            <p>Clipboard history is stored in a local database on your Mac using Apple's SwiftData framework. This data never leaves your device.</p>
+            <p>You can delete everything at any time from <strong>ClipStash Settings &rarr; Clear History</strong>. Uninstalling the app removes all locally stored data.</p>
+            <p>Free-trial eligibility and subscription status are managed by Apple's StoreKit and tied to your Apple ID, not ClipStash. We never see or store this information.</p>
         </div>
 
         <!-- Subscriptions -->
         <div class="section">
-            <h2><span class="emoji">&#x1F4B3;</span> Subscriptions &amp; Purchases</h2>
+            <h2><span class="emoji-icon">&#x1F4B3;</span> Subscriptions &amp; purchases</h2>
             <p>ClipStash offers in-app purchases managed entirely by Apple through the App Store. We do not process, store, or have access to any payment information.</p>
-            <p>Subscription management, billing, and refunds are handled by Apple. You can manage your subscription in <strong>System Settings &rarr; Apple ID &rarr; Media &amp; Purchases &rarr; Subscriptions</strong>.</p>
+            <p>Manage your subscription in <strong>System Settings &rarr; Apple ID &rarr; Media &amp; Purchases &rarr; Subscriptions</strong>.</p>
         </div>
 
         <!-- Accessibility -->
         <div class="section">
-            <h2><span class="emoji">&#x1F510;</span> Accessibility Permission</h2>
-            <p>ClipStash requests macOS Accessibility permission for two purposes:</p>
+            <h2><span class="emoji-icon">&#x1F510;</span> Accessibility permission</h2>
+            <p>ClipStash requests macOS Accessibility for one single purpose:</p>
             <ul>
-                <li><strong>Global keyboard shortcut</strong> &mdash; to register and respond to the &#x2318;&#x21E7;V shortcut system-wide</li>
-                <li><strong>Simulated paste</strong> &mdash; to paste selected clips into the active application</li>
+                <li><strong>Simulated paste</strong> — paste the selected clip into the active app when you press Return or click an item.</li>
             </ul>
-            <p>This permission is used solely for these functions and does not grant ClipStash access to screen content, keystrokes, or other applications' data.</p>
+            <p>The custom open-panel shortcut (Pro) is registered through Apple's native hotkey API and does not require Accessibility. Accessibility does not grant ClipStash access to screen content, keystrokes outside our own hotkey, or other applications' data.</p>
         </div>
 
         <!-- Third parties -->
         <div class="section">
-            <h2><span class="emoji">&#x1F465;</span> Third-Party Services</h2>
-            <p>ClipStash does not integrate with any third-party analytics, advertising, or tracking services. The only external service interaction is with Apple's StoreKit framework for in-app purchase verification.</p>
+            <h2><span class="emoji-icon">&#x1F465;</span> Third-party services</h2>
+            <p>ClipStash integrates with zero third-party analytics, advertising, or tracking services. The only external service interaction is with Apple's StoreKit framework for in-app purchase verification.</p>
         </div>
 
         <!-- Data Retention -->
         <div class="section">
-            <h2><span class="emoji">&#x1F5C4;&#xFE0F;</span> Data Retention</h2>
-            <p>Clipboard history is retained on your device until you manually delete it via Settings &rarr; Clear History, or until it is automatically replaced when the history limit is reached (10 items for free users, unlimited for Pro users).</p>
-            <p>Pinned clips are retained indefinitely until you unpin and delete them. Uninstalling ClipStash removes all locally stored clipboard data. Trial status in the Keychain persists across installations to prevent trial abuse.</p>
+            <h2><span class="emoji-icon">&#x1F5C4;&#xFE0F;</span> Data retention</h2>
+            <p>Clipboard history is retained on your device until you manually delete it via <strong>Settings &rarr; Clear History</strong>, or until it's automatically replaced when the limit is reached (10 items for free, unlimited for Pro).</p>
+            <p>Pinned clips are retained indefinitely until you unpin and delete them. Uninstalling ClipStash removes all locally stored clipboard data.</p>
         </div>
 
         <!-- Your Rights -->
         <div class="section">
-            <h2><span class="emoji">&#x2696;&#xFE0F;</span> Your Rights</h2>
-            <p>Since all data is stored locally on your device and we do not collect or process any personal data on external servers, you have full control over your information at all times:</p>
+            <h2><span class="emoji-icon">&#x2696;&#xFE0F;</span> Your rights</h2>
+            <p>Since all data is stored locally on your device and we don't collect or process any personal data on external servers, you have full control over your information at all times:</p>
             <ul>
-                <li><strong>Access</strong> &mdash; All your data is visible within the app</li>
-                <li><strong>Deletion</strong> &mdash; Clear your history from Settings, or uninstall the app to remove all data</li>
-                <li><strong>Portability</strong> &mdash; Your data resides on your device and is accessible through standard macOS file system</li>
+                <li><strong>Access</strong> — all your data is visible within the app</li>
+                <li><strong>Deletion</strong> — clear history from Settings, or uninstall to remove everything</li>
+                <li><strong>Portability</strong> — your data resides on your device and is accessible through standard macOS file system</li>
             </ul>
-            <p>If you are located in the European Economic Area (EEA), United Kingdom, or California, you may have additional rights under GDPR, UK GDPR, or CCPA respectively. Because ClipStash does not collect, store, or process personal data on external servers, these regulations have minimal applicability. However, if you believe you have a data-related concern, please contact us.</p>
+            <p>If you are located in the European Economic Area (EEA), United Kingdom, or California, you may have additional rights under GDPR, UK GDPR, or CCPA. Because ClipStash does not collect, store, or process personal data on external servers, these regulations have minimal applicability. If you have a data-related concern, please contact us.</p>
         </div>
 
         <!-- Governing Law -->
         <div class="section">
-            <h2><span class="emoji">&#x1F30D;</span> Governing Law</h2>
+            <h2><span class="emoji-icon">&#x1F30D;</span> Governing law</h2>
             <p>This Privacy Policy is governed by and construed in accordance with the laws of Canada. Any disputes arising from this policy shall be subject to the exclusive jurisdiction of the courts in the Province of Ontario, Canada.</p>
         </div>
 
         <!-- Changes -->
         <div class="section">
-            <h2><span class="emoji">&#x1F4DD;</span> Changes to This Policy</h2>
-            <p>We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated revision date. If we make material changes, we will notify users through the app or by updating the "Last updated" date at the top of this page.</p>
-            <p>Continued use of ClipStash after changes constitutes acceptance of the updated policy. We encourage you to review this page periodically.</p>
+            <h2><span class="emoji-icon">&#x1F4DD;</span> Changes to this policy</h2>
+            <p>We may update this Privacy Policy from time to time. Material changes will be reflected on this page with an updated revision date. Continued use of ClipStash after changes constitutes acceptance of the updated policy.</p>
         </div>
 
         <!-- Contact -->
         <div class="section">
-            <h2><span class="emoji">&#x2709;&#xFE0F;</span> Contact</h2>
-            <p>If you have any questions about this Privacy Policy or ClipStash's data practices, please contact us:</p>
-            <p><strong>Email:</strong> <a href="mailto:tanvir4talk+appsupport@gmail.com" style="color: var(--accent);">tanvir4talk+appsupport@gmail.com</a></p>
+            <h2><span class="emoji-icon">&#x2709;&#xFE0F;</span> Contact</h2>
+            <p>Questions about this Privacy Policy or ClipStash's data practices?</p>
+            <p><strong>Email:</strong> <a href="mailto:tanvir4talk+appsupport@gmail.com">tanvir4talk+appsupport@gmail.com</a></p>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <div class="footer-links">
                 <a href="https://tanvirnh.github.io/clipstash-support-/">Support</a>
                 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a>
                 <a href="mailto:tanvir4talk+appsupport@gmail.com">Contact</a>
             </div>
-            <p>&copy; 2025 ClipStash. All rights reserved.</p>
+            <p>&copy; 2026 ClipStash. All rights reserved.</p>
         </div>
     </div>
 </body>
